@@ -1,0 +1,1 @@
+This project is a solution for TASK.md (please review TASK.md at first)
