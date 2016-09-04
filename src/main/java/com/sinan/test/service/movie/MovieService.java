@@ -1,4 +1,4 @@
-package com.sinan.test.service;
+package com.sinan.test.service.movie;
 
 import com.sinan.test.dao.entity.MovieEntity;
 

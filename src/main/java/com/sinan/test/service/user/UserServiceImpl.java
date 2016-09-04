@@ -1,4 +1,4 @@
-package com.sinan.test.service;
+package com.sinan.test.service.user;
 
 import com.sinan.test.dao.repository.UserRepository;
 import org.slf4j.Logger;

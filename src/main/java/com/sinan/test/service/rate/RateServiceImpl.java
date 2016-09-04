@@ -1,4 +1,4 @@
-package com.sinan.test.service;
+package com.sinan.test.service.rate;
 
 import com.sinan.test.dao.repository.RateRepository;
 import org.slf4j.Logger;
