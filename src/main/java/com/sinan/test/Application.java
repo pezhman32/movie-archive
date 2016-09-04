@@ -32,8 +32,8 @@ public class Application {
 		EmbeddedDatabase db = builder
 				.setType(EmbeddedDatabaseType.H2)
 				.setName("application_db")
-				.addScript("sql/create-db.sql")
-				.addScript("sql/insert-data.sql")
+				.addScript("sql/create_db.sql")
+				.addScript("sql/sample_data.sql")
 				.build();
 		return db;
 	}

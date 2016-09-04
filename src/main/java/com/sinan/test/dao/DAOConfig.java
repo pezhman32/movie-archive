@@ -1,4 +1,4 @@
-package com.sinan.test;
+package com.sinan.test.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
