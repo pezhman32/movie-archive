@@ -32,7 +32,7 @@ public class Application {
 		EmbeddedDatabase db = builder
 				.setType(EmbeddedDatabaseType.H2)
 				.setName("application_db")
-				.addScript("sql/create_db.sql")
+				.addScript("sql/ddl.sql")
 				.addScript("sql/sample_data.sql")
 				.build();
 		return db;
