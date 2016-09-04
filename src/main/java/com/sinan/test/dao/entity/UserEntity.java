@@ -1,10 +1,12 @@
 package com.sinan.test.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 /**
@@ -44,6 +46,8 @@ public class UserEntity extends BaseEntity {
 		this.email = email;
 	}
 
+	@XmlTransient
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

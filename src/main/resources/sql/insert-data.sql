@@ -1,6 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO movies (id, name, year, avg_rating, genre, director, dao_create, dao_updated) VALUES
+INSERT INTO movies (id, name, year, avg_rating, genre, director, dao_created, dao_updated) VALUES
 (1, 'Customer', 2016, '4.50', 'DRAMA', 'Asghar Farhadi', '2016-09-03 00:00:00', NULL);
 
 INSERT INTO users (id, username, email, password, birthdate, dao_created, dao_updated) VALUES

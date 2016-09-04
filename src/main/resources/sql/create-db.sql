@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS movies (
   avg_rating decimal(3,2) NOT NULL COMMENT 'cached ratings',
   genre varchar(25) NOT NULL, /*enum('ACTION','ADVENTURE','COMEDY','CRIME','DRAMA','FANTASY','HISTORICAL','HISTORICAL_FICTION','HORROR','MAGICAL_REALISM','MYSTERY','PARANOID','PHILOSOPHICAL','POLITICAL','ROMANCE','SAGA','SATIRE','SCIENCE_FICTION','SLICE_OF_LIFE','SPECULATIVE','THRILLER','URBAN','WESTERN','ANIMATION')*/
   director varchar(20) NOT NULL,
-  dao_create datetime NOT NULL,
+  dao_created datetime NOT NULL,
   dao_updated datetime DEFAULT NULL,
   PRIMARY KEY (id)
 ) ;
