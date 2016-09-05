@@ -1,12 +1,14 @@
 package com.sinan.test.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.List;
@@ -19,15 +21,19 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
+	@NotNull
 	@Column
 	private String username;
 
+	@NotNull
 	@Column
 	private String email;
 
+	@NotNull
 	@Column
 	private String password;
 
+	@NotNull
 	@Column
 	@Type(type = "date")
 	private Date birthdate;
@@ -57,6 +63,7 @@ public class UserEntity extends BaseEntity {
 		return password;
 	}
 
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}

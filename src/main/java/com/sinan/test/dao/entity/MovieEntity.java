@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,6 +34,7 @@ public class MovieEntity extends BaseEntity {
 	@Max(5)
 	private BigDecimal avgRating;
 
+	@NotNull
 	@Column
 	@Enumerated(EnumType.STRING)
 	private GENRE genre;

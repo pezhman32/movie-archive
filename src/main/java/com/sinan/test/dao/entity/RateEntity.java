@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
@@ -18,24 +19,29 @@ import java.util.Date;
 @Entity
 @Table(name = "rates")
 public class RateEntity extends BaseEntity {
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "movie_id", referencedColumnName = "id")
 	private MovieEntity movieEntity;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private UserEntity userEntity;
 
 	@Column
+	@NotNull
 	@Digits(integer = 1, fraction = 2)
 	@Min(0)
 	@Max(5)
 	private BigDecimal rate;
 
+	@NotNull
 	@Column(name = "watched_date")
 	@Type(type = "date")
 	private Date watchedDate;
 
+	@NotNull
 	@Column(name = "watched_time")
 	@Type(type = "time")
 	private Time watchedTime;

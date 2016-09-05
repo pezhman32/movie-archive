@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.MappedSuperclass;
 
@@ -25,12 +22,13 @@ public abstract class BaseREST<E extends BaseEntity, S extends BaseService> {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public E addNew(E entity) {
+	public E addNew(@RequestBody E entity) {
 		return (E) service.addNew(entity);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public E update(@PathVariable("id") Integer id, E entity) {
+	public E update(@PathVariable("id") Integer id,
+	                @RequestBody E entity) {
 		return (E) service.update(id, entity);
 	}
 
