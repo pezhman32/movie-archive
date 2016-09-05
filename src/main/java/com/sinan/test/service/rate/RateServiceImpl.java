@@ -33,7 +33,7 @@ public class RateServiceImpl extends BaseServiceImpl<RateEntity, RateRepository>
 	}
 
 	/**
-	 * Adds new rateEntity and reset its movie avgRating field
+	 * Adds new rateEntity and resets its movie avgRating field
 	 */
 	@Override
 	public RateEntity addNew(RateEntity entity) throws MovieServiceException, RateServiceException {
@@ -49,6 +49,9 @@ public class RateServiceImpl extends BaseServiceImpl<RateEntity, RateRepository>
 		return get(rateEntity.getId());
 	}
 
+	/**
+	 * Updates rate entity and resets its movie avgRating field
+	 */
 	@Override
 	public RateEntity update(Integer id, RateEntity entity) throws MovieServiceException {
 		RateEntity rateEntity = super.update(id, entity);
@@ -56,6 +59,9 @@ public class RateServiceImpl extends BaseServiceImpl<RateEntity, RateRepository>
 		return entity;
 	}
 
+	/**
+	 * Deletes rate entity and resets its movie avgRating field
+	 */
 	@Override
 	public void delete(Integer id) throws MovieServiceException {
 		MovieEntity movieEntity = get(id).getMovieEntity();

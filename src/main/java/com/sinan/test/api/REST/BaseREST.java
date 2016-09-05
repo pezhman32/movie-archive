@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.MappedSuperclass;
 
+/**
+ * Some basic endpoints such as list all([GET] /), add new([POST] /), update([PUT] /) and delete([DELETE] /)
+ * to be available in all extended REST APIs
+ */
 @MappedSuperclass
 public abstract class BaseREST<E extends BaseEntity, S extends BaseService> {
+
 	@Autowired
 	S service;
 

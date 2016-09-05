@@ -31,8 +31,8 @@ public class MovieREST extends BaseREST<MovieEntity, MovieService> {
 	 * Given a userId, return all movies that user has watched and the total count, as well as the rating for that movie.
 	 */
 	@RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
-	public Page<MovieEntity> age(@PathVariable("userId") Integer userId,
-	                             Pageable pageable) throws MovieServiceException {
+	public Page<MovieEntity> userMovies(@PathVariable("userId") Integer userId,
+	                                    Pageable pageable) throws MovieServiceException {
 		return service.userMovies(userId, pageable);
 	}
 
@@ -58,8 +58,8 @@ public class MovieREST extends BaseREST<MovieEntity, MovieService> {
 	 * where the rating was made by other users within 5 years (older and younger) of the user's age.
 	 */
 	@RequestMapping(value = "topGenre/{genre}", method = RequestMethod.GET)
-	public List<MovieEntity> state(@PathVariable("genre") GENRE genre,
-	                               @RequestParam Integer userId) throws UserServiceException {
+	public List<MovieEntity> topGenre(@PathVariable("genre") GENRE genre,
+	                                  @RequestParam Integer userId) throws UserServiceException {
 		return service.findByGenreAndUserAge(genre, userId, 5);
 	}
 }
