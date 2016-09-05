@@ -1,5 +1,6 @@
 package com.sinan.test.service.user;
 
+import com.sinan.test.dao.entity.UserEntity;
 import com.sinan.test.dao.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,5 +19,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Override
+	public UserEntity findUser(Integer userId) throws UserServiceException {
+		UserEntity userEntity = userRepository.findOne(userId);
+		if (userEntity == null) {
+			throw new UserServiceException("User #" + userId + " not found");
+		}
 
+		return userEntity;
+	}
 }

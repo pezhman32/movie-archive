@@ -1,6 +1,8 @@
 package com.sinan.test.service.movie;
 
 import com.sinan.test.dao.entity.MovieEntity;
+import com.sinan.test.dao.enums.GENRE;
+import com.sinan.test.service.user.UserServiceException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,4 +21,6 @@ public interface MovieService {
 	BigDecimal getAvgRatingForMovie(Integer movieId) throws MovieServiceException;
 
 	void resetAvgRatingForAllMovies() throws MovieServiceException;
+
+	List<MovieEntity> findByGenreAndUserAge(GENRE genre, Integer userId, int limit) throws UserServiceException;
 }

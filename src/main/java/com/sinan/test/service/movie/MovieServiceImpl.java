@@ -1,9 +1,13 @@
 package com.sinan.test.service.movie;
 
 import com.sinan.test.dao.entity.MovieEntity;
+import com.sinan.test.dao.entity.UserEntity;
+import com.sinan.test.dao.enums.GENRE;
 import com.sinan.test.dao.repository.MovieRepository;
 import com.sinan.test.dao.specification.MovieSpecification;
 import com.sinan.test.service.rate.RateService;
+import com.sinan.test.service.user.UserService;
+import com.sinan.test.service.user.UserServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +33,10 @@ public class MovieServiceImpl implements MovieService {
 
 	@Autowired
 	private MovieRepository movieRepository;
-
 	@Autowired
 	private RateService rateService;
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public MovieEntity getMovie(Integer movieId) throws MovieServiceException {
@@ -43,7 +48,7 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public List<MovieEntity> topMovies(int limit) {
-		Page<MovieEntity> movies = movieRepository.findAll(new PageRequest(0, limit, Sort.Direction.DESC, "avgRating"));
+		Page<MovieEntity> movies = movieRepository.findAll(createAvgSortedPageRequest(limit));
 		return movies.getContent();
 	}
 
@@ -68,7 +73,7 @@ public class MovieServiceImpl implements MovieService {
 	public List<MovieEntity> topLateNightMovies(int limit) {
 		Page<MovieEntity> movies = movieRepository.findAll(
 				MovieSpecification.lateNightMovies(),
-				new PageRequest(0, limit, Sort.Direction.DESC, "avgRating"));
+				createAvgSortedPageRequest(limit));
 		return movies.getContent();
 	}
 
@@ -82,12 +87,25 @@ public class MovieServiceImpl implements MovieService {
 		return resetAvgRating(movieEntity).getAvgRating();
 	}
 
+	/**
+	 * Re-estimates avgRating field for all movies in database
+	 * @throws MovieServiceException
+	 */
 	@Override
 	public void resetAvgRatingForAllMovies() throws MovieServiceException {
 		List<MovieEntity> movieEntities = movieRepository.findAll();
 		for (MovieEntity movieEntity : movieEntities) {
 			resetAvgRating(movieEntity);
 		}
+	}
+
+	@Override
+	public List<MovieEntity> findByGenreAndUserAge(GENRE genre, Integer userId, int limit) throws UserServiceException {
+		UserEntity userEntity = userService.findUser(userId);
+		Page<MovieEntity> movies = movieRepository.findAll(
+				MovieSpecification.findByGenreAndUserAge(genre, userEntity),
+				createAvgSortedPageRequest(limit));
+		return movies.getContent();
 	}
 
 	/**
@@ -111,5 +129,9 @@ public class MovieServiceImpl implements MovieService {
 		movieEntity.setAvgRating(
 				rateService.estimateAvgRatingForMovie(movieEntity.getId()));
 		return movieEntity;
+	}
+
+	private PageRequest createAvgSortedPageRequest(int limit) {
+		return new PageRequest(0, limit, Sort.Direction.DESC, "avgRating");
 	}
 }

@@ -1,15 +1,14 @@
 package com.sinan.test.api.REST;
 
 import com.sinan.test.dao.entity.MovieEntity;
+import com.sinan.test.dao.enums.GENRE;
 import com.sinan.test.service.movie.MovieService;
 import com.sinan.test.service.movie.MovieServiceException;
+import com.sinan.test.service.user.UserServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -56,5 +55,15 @@ public class MovieREST extends BaseREST {
 	@RequestMapping(value = "{movieId}/avgRating", method = RequestMethod.GET)
 	public BigDecimal avgRating(@PathVariable("movieId") Integer movieId) throws MovieServiceException {
 		return movieService.getAvgRatingForMovie(movieId);
+	}
+
+	/**
+	 * Given a genre such as "action" and a userId, return the top 5 movies for that genre by average rating,
+	 * where the rating was made by other users within 5 years (older and younger) of the user's age.
+	 */
+	@RequestMapping(value = "topGenre/{genre}", method = RequestMethod.GET)
+	public List<MovieEntity> state(@PathVariable("genre") GENRE genre,
+	                               @RequestParam Integer userId) throws UserServiceException {
+		return movieService.findByGenreAndUserAge(genre, userId, 5);
 	}
 }
