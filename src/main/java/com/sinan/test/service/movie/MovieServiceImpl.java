@@ -30,8 +30,8 @@ public class MovieServiceImpl implements MovieService {
 	 * Given a parameter of "age", return the top 10 movies ordered by average rating.
 	 */
 	@Override
-	public List<MovieEntity> top10Movies() {
-		Page<MovieEntity> movies = movieRepository.findAll(new PageRequest(0, 10, Sort.Direction.DESC, "avgRating"));
+	public List<MovieEntity> topMovies(int limit) {
+		Page<MovieEntity> movies = movieRepository.findAll(new PageRequest(0, limit, Sort.Direction.DESC, "avgRating"));
 		return movies.getContent();
 	}
 
@@ -46,5 +46,13 @@ public class MovieServiceImpl implements MovieService {
 		}
 
 		return movieRepository.findAll(MovieSpecification.userMovies(userId), pageable);
+	}
+
+	@Override
+	public List<MovieEntity> topLateNightMovies(int limit) {
+		Page<MovieEntity> movies = movieRepository.findAll(
+				MovieSpecification.lateNightMovies(),
+				new PageRequest(0, limit, Sort.Direction.DESC, "avgRating"));
+		return movies.getContent();
 	}
 }

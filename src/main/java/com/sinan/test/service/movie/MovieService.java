@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface MovieService {
-	List<MovieEntity> top10Movies();
+	List<MovieEntity> topMovies(int limit);
 
 	Page<MovieEntity> userMovies(Integer userId, Pageable pageable) throws MovieServiceException;
+
+	List<MovieEntity> topLateNightMovies(int limit);
 }
