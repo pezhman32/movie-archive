@@ -1,10 +1,12 @@
 package com.sinan.test.service;
 
-/**
- * Created by Pezhman Jahanmard on 9/5/16.
- */
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface BaseService<E> {
 	E findById(Integer id);
+
+	Page<E> findAll(Pageable pageable);
 
 	E addNew(E entity);
 

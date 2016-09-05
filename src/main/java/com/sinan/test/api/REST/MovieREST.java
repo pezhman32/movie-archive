@@ -5,7 +5,6 @@ import com.sinan.test.dao.enums.GENRE;
 import com.sinan.test.service.movie.MovieService;
 import com.sinan.test.service.movie.MovieServiceException;
 import com.sinan.test.service.user.UserServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +17,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/movies")
-public class MovieREST extends BaseREST {
-
-	@Autowired
-	private MovieService movieService;
+public class MovieREST extends BaseREST<MovieEntity, MovieService> {
 
 	/**
 	 * Given a parameter of "age", return the top 10 movies ordered by average rating.
 	 */
 	@RequestMapping(value = "age", method = RequestMethod.GET)
 	public List<MovieEntity> age() {
-		return movieService.topMovies(10);
+		return service.topMovies(10);
 	}
 
 	/**
@@ -37,7 +33,7 @@ public class MovieREST extends BaseREST {
 	@RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
 	public Page<MovieEntity> age(@PathVariable("userId") Integer userId,
 	                             Pageable pageable) throws MovieServiceException {
-		return movieService.userMovies(userId, pageable);
+		return service.userMovies(userId, pageable);
 	}
 
 	/**
@@ -46,7 +42,7 @@ public class MovieREST extends BaseREST {
 	 */
 	@RequestMapping(value = "state", method = RequestMethod.GET)
 	public List<MovieEntity> state() {
-		return movieService.topLateNightMovies(20);
+		return service.topLateNightMovies(20);
 	}
 
 	/**
@@ -54,7 +50,7 @@ public class MovieREST extends BaseREST {
 	 */
 	@RequestMapping(value = "{movieId}/avgRating", method = RequestMethod.GET)
 	public BigDecimal avgRating(@PathVariable("movieId") Integer movieId) throws MovieServiceException {
-		return movieService.getAvgRatingForMovie(movieId);
+		return service.getAvgRatingForMovie(movieId);
 	}
 
 	/**
@@ -64,6 +60,6 @@ public class MovieREST extends BaseREST {
 	@RequestMapping(value = "topGenre/{genre}", method = RequestMethod.GET)
 	public List<MovieEntity> state(@PathVariable("genre") GENRE genre,
 	                               @RequestParam Integer userId) throws UserServiceException {
-		return movieService.findByGenreAndUserAge(genre, userId, 5);
+		return service.findByGenreAndUserAge(genre, userId, 5);
 	}
 }

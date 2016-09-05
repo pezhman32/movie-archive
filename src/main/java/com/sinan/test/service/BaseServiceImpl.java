@@ -3,6 +3,8 @@ package com.sinan.test.service;
 import com.sinan.test.dao.entity.BaseEntity;
 import com.sinan.test.dao.repository.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.MappedSuperclass;
@@ -20,6 +22,11 @@ public abstract class BaseServiceImpl<E extends BaseEntity, R extends BaseReposi
 	@Override
 	public E findById(Integer id) {
 		return get(id);
+	}
+
+	@Override
+	public Page<E> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 	@Override
