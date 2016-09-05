@@ -1,9 +1,12 @@
 package com.sinan.test.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sinan.test.dao.enums.GENRE;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * MovieEntity, entity based on movies table
@@ -28,6 +31,9 @@ public class MovieEntity extends BaseEntity {
 
 	@Column
 	private String director;
+
+	@OneToMany(mappedBy = "movieEntity")
+	private List<RateEntity> rateEntities;
 
 	public String getName() {
 		return name;
@@ -67,5 +73,15 @@ public class MovieEntity extends BaseEntity {
 
 	public void setDirector(String director) {
 		this.director = director;
+	}
+
+	@JsonIgnore
+	@XmlTransient
+	public List<RateEntity> getRateEntities() {
+		return rateEntities;
+	}
+
+	public void setRateEntities(List<RateEntity> rateEntities) {
+		this.rateEntities = rateEntities;
 	}
 }
