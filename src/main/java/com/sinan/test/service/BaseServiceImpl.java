@@ -2,6 +2,8 @@ package com.sinan.test.service;
 
 import com.sinan.test.dao.entity.BaseEntity;
 import com.sinan.test.dao.repository.BaseRepository;
+import com.sinan.test.service.movie.MovieServiceException;
+import com.sinan.test.service.rate.RateServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,12 +32,12 @@ public abstract class BaseServiceImpl<E extends BaseEntity, R extends BaseReposi
 	}
 
 	@Override
-	public E addNew(E entity) {
+	public E addNew(E entity) throws MovieServiceException, RateServiceException {
 		return (E) repository.save(entity);
 	}
 
 	@Override
-	public E update(Integer id, E entity) {
+	public E update(Integer id, E entity) throws MovieServiceException {
 		get(id); //to ensure that entity exists, otherwise it will throw exception
 		entity.setId(id);
 
@@ -43,7 +45,7 @@ public abstract class BaseServiceImpl<E extends BaseEntity, R extends BaseReposi
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws MovieServiceException {
 		repository.delete(id);
 	}
 

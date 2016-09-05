@@ -1,5 +1,7 @@
 package com.sinan.test.service;
 
+import com.sinan.test.service.movie.MovieServiceException;
+import com.sinan.test.service.rate.RateServiceException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,9 +10,9 @@ public interface BaseService<E> {
 
 	Page<E> findAll(Pageable pageable);
 
-	E addNew(E entity);
+	E addNew(E entity) throws MovieServiceException, RateServiceException;
 
-	E update(Integer id, E entity);
+	E update(Integer id, E entity) throws MovieServiceException;
 
-	void delete(Integer id);
+	void delete(Integer id) throws MovieServiceException;
 }

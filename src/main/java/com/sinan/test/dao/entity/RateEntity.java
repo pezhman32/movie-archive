@@ -1,6 +1,7 @@
 package com.sinan.test.dao.entity;
 
 import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Time;
 import java.util.Date;
 
@@ -44,6 +46,7 @@ public class RateEntity extends BaseEntity {
 	@NotNull
 	@Column(name = "watched_time")
 	@Type(type = "time")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Time watchedTime;
 
 	public MovieEntity getMovieEntity() {
@@ -67,7 +70,11 @@ public class RateEntity extends BaseEntity {
 	}
 
 	public void setRate(BigDecimal rate) {
-		this.rate = rate;
+		if (rate == null) {
+			rate = BigDecimal.ZERO;
+		}
+
+		this.rate = rate.setScale(2, RoundingMode.CEILING);
 	}
 
 	public Date getWatchedDate() {

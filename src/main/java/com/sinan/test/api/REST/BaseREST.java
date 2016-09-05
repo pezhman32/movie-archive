@@ -3,6 +3,7 @@ package com.sinan.test.api.REST;
 
 import com.sinan.test.dao.entity.BaseEntity;
 import com.sinan.test.service.BaseService;
+import com.sinan.test.service.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,19 +23,19 @@ public abstract class BaseREST<E extends BaseEntity, S extends BaseService> {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public E addNew(@RequestBody E entity) {
+	public E addNew(@RequestBody E entity) throws ServiceException {
 		return (E) service.addNew(entity);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public E update(@PathVariable("id") Integer id,
-	                @RequestBody E entity) {
+	                @RequestBody E entity) throws ServiceException {
 		return (E) service.update(id, entity);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") Integer id) throws ServiceException {
 		service.delete(id);
 	}
 }

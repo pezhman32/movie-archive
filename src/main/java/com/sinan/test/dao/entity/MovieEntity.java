@@ -10,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -66,7 +67,10 @@ public class MovieEntity extends BaseEntity {
 	}
 
 	public void setAvgRating(BigDecimal avgRating) {
-		this.avgRating = avgRating;
+		if (avgRating == null) {
+			avgRating = BigDecimal.ZERO;
+		}
+		this.avgRating = avgRating.setScale(2, RoundingMode.CEILING);
 	}
 
 	public GENRE getGenre() {

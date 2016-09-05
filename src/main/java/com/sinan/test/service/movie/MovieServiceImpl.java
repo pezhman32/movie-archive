@@ -106,7 +106,8 @@ public class MovieServiceImpl extends BaseServiceImpl<MovieEntity, MovieReposito
 	 * Re-estimate avg rating for single movie
 	 * because of @transactional it will be saved automatically
 	 */
-	private MovieEntity resetAvgRating(MovieEntity movieEntity) throws MovieServiceException {
+	@Override
+	public MovieEntity resetAvgRating(MovieEntity movieEntity) throws MovieServiceException {
 		movieEntity.setAvgRating(
 				rateService.estimateAvgRatingForMovie(movieEntity.getId()));
 		return movieEntity;

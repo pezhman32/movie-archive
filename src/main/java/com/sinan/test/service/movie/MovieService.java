@@ -23,4 +23,6 @@ public interface MovieService extends BaseService<MovieEntity> {
 	void resetAvgRatingForAllMovies() throws MovieServiceException;
 
 	List<MovieEntity> findByGenreAndUserAge(GENRE genre, Integer userId, int limit) throws UserServiceException;
+
+	MovieEntity resetAvgRating(MovieEntity movieEntity) throws MovieServiceException;
 }
