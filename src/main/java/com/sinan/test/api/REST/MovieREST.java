@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -47,5 +48,13 @@ public class MovieREST extends BaseREST {
 	@RequestMapping(value = "state", method = RequestMethod.GET)
 	public List<MovieEntity> state() {
 		return movieService.topLateNightMovies(20);
+	}
+
+	/**
+	 * Given a parameter of "movieId", return its average rating.
+	 */
+	@RequestMapping(value = "{movieId}/avgRating", method = RequestMethod.GET)
+	public BigDecimal avgRating(@PathVariable("movieId") Integer movieId) throws MovieServiceException {
+		return movieService.getAvgRatingForMovie(movieId);
 	}
 }
