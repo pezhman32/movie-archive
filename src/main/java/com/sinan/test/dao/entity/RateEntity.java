@@ -3,6 +3,9 @@ package com.sinan.test.dao.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
@@ -24,6 +27,9 @@ public class RateEntity extends BaseEntity {
 	private UserEntity userEntity;
 
 	@Column
+	@Digits(integer = 1, fraction = 2)
+	@Min(0)
+	@Max(5)
 	private BigDecimal rate;
 
 	@Column(name = "watched_date")

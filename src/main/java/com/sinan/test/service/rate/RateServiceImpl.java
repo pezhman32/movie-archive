@@ -1,9 +1,10 @@
 package com.sinan.test.service.rate;
 
+import com.sinan.test.dao.entity.RateEntity;
 import com.sinan.test.dao.repository.RateRepository;
+import com.sinan.test.service.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +17,11 @@ import java.math.BigDecimal;
  */
 @Service
 @Transactional
-public class RateServiceImpl implements RateService {
+public class RateServiceImpl extends BaseServiceImpl<RateEntity, RateRepository> implements RateService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RateServiceImpl.class);
-
-	@Autowired
-	private RateRepository rateRepository;
 
 	@Override
 	public BigDecimal estimateAvgRatingForMovie(Integer movieId) {
-		return rateRepository.estimateAvgRating(movieId);
+		return repository.estimateAvgRating(movieId);
 	}
 }

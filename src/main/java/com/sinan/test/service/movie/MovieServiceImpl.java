@@ -5,6 +5,7 @@ import com.sinan.test.dao.entity.UserEntity;
 import com.sinan.test.dao.enums.GENRE;
 import com.sinan.test.dao.repository.MovieRepository;
 import com.sinan.test.dao.specification.MovieSpecification;
+import com.sinan.test.service.BaseServiceImpl;
 import com.sinan.test.service.rate.RateService;
 import com.sinan.test.service.user.UserService;
 import com.sinan.test.service.user.UserServiceException;
@@ -28,27 +29,20 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class MovieServiceImpl implements MovieService {
+public class MovieServiceImpl extends BaseServiceImpl<MovieEntity, MovieRepository> implements MovieService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);
 
-	@Autowired
-	private MovieRepository movieRepository;
 	@Autowired
 	private RateService rateService;
 	@Autowired
 	private UserService userService;
-
-	@Override
-	public MovieEntity getMovie(Integer movieId) throws MovieServiceException {
-		return get(movieId);
-	}
 
 	/**
 	 * Given a parameter of "age", return the top 10 movies ordered by average rating.
 	 */
 	@Override
 	public List<MovieEntity> topMovies(int limit) {
-		Page<MovieEntity> movies = movieRepository.findAll(createAvgSortedPageRequest(limit));
+		Page<MovieEntity> movies = repository.findAll(createAvgSortedPageRequest(limit));
 		return movies.getContent();
 	}
 
@@ -62,7 +56,7 @@ public class MovieServiceImpl implements MovieService {
 			throw new MovieServiceException("userId is required.");
 		}
 
-		return movieRepository.findAll(MovieSpecification.userMovies(userId), pageable);
+		return repository.findAll(MovieSpecification.userMovies(userId), pageable);
 	}
 
 	/**
@@ -71,7 +65,7 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public List<MovieEntity> topLateNightMovies(int limit) {
-		Page<MovieEntity> movies = movieRepository.findAll(
+		Page<MovieEntity> movies = repository.findAll(
 				MovieSpecification.lateNightMovies(),
 				createAvgSortedPageRequest(limit));
 		return movies.getContent();
@@ -93,7 +87,7 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public void resetAvgRatingForAllMovies() throws MovieServiceException {
-		List<MovieEntity> movieEntities = movieRepository.findAll();
+		List<MovieEntity> movieEntities = repository.findAll();
 		for (MovieEntity movieEntity : movieEntities) {
 			resetAvgRating(movieEntity);
 		}
@@ -102,23 +96,10 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public List<MovieEntity> findByGenreAndUserAge(GENRE genre, Integer userId, int limit) throws UserServiceException {
 		UserEntity userEntity = userService.findUser(userId);
-		Page<MovieEntity> movies = movieRepository.findAll(
+		Page<MovieEntity> movies = repository.findAll(
 				MovieSpecification.findByGenreAndUserAge(genre, userEntity),
 				createAvgSortedPageRequest(limit));
 		return movies.getContent();
-	}
-
-	/**
-	 * Finds a movie by its id
-	 * @throws MovieServiceException if movie not found
-	 */
-	private MovieEntity get(Integer movieId) throws MovieServiceException {
-		MovieEntity movieEntity = movieRepository.findOne(movieId);
-		if (movieEntity == null) {
-			throw new MovieServiceException("Movie #" + movieId + " not found.");
-		}
-
-		return movieEntity;
 	}
 
 	/**

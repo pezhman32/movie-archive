@@ -2,9 +2,9 @@ package com.sinan.test.service.user;
 
 import com.sinan.test.dao.entity.UserEntity;
 import com.sinan.test.dao.repository.UserRepository;
+import com.sinan.test.service.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,15 +13,12 @@ import org.springframework.stereotype.Service;
  * @author Pezhman Jahanmard
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<UserEntity, UserRepository> implements UserService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-
-	@Autowired
-	private UserRepository userRepository;
 
 	@Override
 	public UserEntity findUser(Integer userId) throws UserServiceException {
-		UserEntity userEntity = userRepository.findOne(userId);
+		UserEntity userEntity = repository.findOne(userId);
 		if (userEntity == null) {
 			throw new UserServiceException("User #" + userId + " not found");
 		}

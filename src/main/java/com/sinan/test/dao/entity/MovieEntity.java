@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sinan.test.dao.enums.GENRE;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,9 +23,14 @@ public class MovieEntity extends BaseEntity {
 	private String name;
 
 	@Column(columnDefinition = "SMALLINT")
+	@Min(1970)
+	@Max(2016)
 	private Integer year;
 
 	@Column(name = "avg_rating")
+	@Digits(integer = 1, fraction = 2)
+	@Min(0)
+	@Max(5)
 	private BigDecimal avgRating;
 
 	@Column
