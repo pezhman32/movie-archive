@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>Movie Archive</name>
-	<description>Demo project for Spring Boot, in-memory db and REST APIs</description>
+	<description>Demo project for Spring Boot, in-memory H2 db and REST APIs</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
