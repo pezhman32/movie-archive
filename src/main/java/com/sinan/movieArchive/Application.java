@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.embedded.*;
 
-import java.sql.Driver;
 import javax.sql.DataSource;
+import java.sql.Driver;
 
 @SpringBootApplication
 @Configuration
@@ -24,8 +24,8 @@ public class Application {
 	private static final String DATABASE_SCHEMA = "sql/ddl.sql";
 	private static final String DATABASE_SAMPLE_DATA = "sql/sample_data.sql";
 	private static final String DATABASE_URL = "jdbc:h2:mem:application_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false";
-	private static final String DATABASE_USERNAME = "sa";
-	private static final String DATABASE_PASSWORD = "123456";
+	private static final String DATABASE_USERNAME = "cfa_admin";
+	private static final String DATABASE_PASSWORD = "p@$$w0rd!";
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
