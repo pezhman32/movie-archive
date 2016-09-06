@@ -1,0 +1,31 @@
+package com.sinan.movieArchive.dao.enums;
+
+/**
+ * Created by Pezhman Jahanmard on 9/4/16.
+ */
+public enum GENRE {
+	ACTION, 
+	ADVENTURE,
+	COMEDY,
+	CRIME,
+	DRAMA,
+	FANTASY,
+	HISTORICAL,
+	HISTORICAL_FICTION,
+	HORROR,
+	MAGICAL_REALISM,
+	MYSTERY,
+	PARANOID,
+	PHILOSOPHICAL,
+	POLITICAL,
+	ROMANCE,
+	SAGA,
+	SATIRE,
+	SCIENCE_FICTION,
+	SLICE_OF_LIFE,
+	SPECULATIVE,
+	THRILLER,
+	URBAN,
+	WESTERN,
+	ANIMATION
+}
