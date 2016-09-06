@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS rates (
   watched_time time NOT NULL,
   dao_created datetime NOT NULL,
   dao_updated datetime DEFAULT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 --   KEY user_id (user_id),
 --   KEY movie_id (movie_id)
 ) ;
@@ -41,7 +41,14 @@ CREATE TABLE IF NOT EXISTS users (
   UNIQUE (username,email)
 ) ;
 
--- ALTER TABLE rates
---   ADD CONSTRAINT rates_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
---   ADD CONSTRAINT rates_ibfk_2 FOREIGN KEY (movie_id) REFERENCES movies (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ ALTER TABLE rates
+   ADD FOREIGN KEY (user_id) REFERENCES users (id) ;
+ALTER TABLE rates
+   ADD FOREIGN KEY (movie_id) REFERENCES movies (id) ;
+
+  CREATE INDEX USERS_INDEX_ID ON users(id);
+  CREATE INDEX RATES_INDEX_ID ON rates(id);
+  CREATE INDEX MOVIES_INDEX_ID ON movies(id);
+
+
 SET FOREIGN_KEY_CHECKS=1;
